@@ -7,7 +7,21 @@ public class TicTacToe {
     };
 
     public static void main(String[] args) {
-        System.out.println(isValidMove(1, 1));
+        placeMove(1, 1, 'X');
+        System.out.println(board[1][1]);
+    }
+
+    /**
+     * Places the given symbol on the board at [row][col] if the move is valid.
+     * Input: Row, Column, Symbol ('X' or 'O')
+     * Output: true if placed successfully, false if invalid move.
+     */
+    static boolean placeMove(int row, int col, char symbol) {
+        if (!isValidMove(row, col)) {
+            return false;
+        }
+        board[row][col] = symbol;
+        return true;
     }
 
     /**
