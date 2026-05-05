@@ -1,28 +1,52 @@
+import java.util.Random;
+
 /**
  * TicTacToe
- * UC6 places a player's symbol on the board at the given position.
- * This use case focuses on updating game state.
+ * UC7 allows the computer to make a random valid move
+ * by reusing slot conversion and validation logic.
  */
 public class TicTacToe {
 
-    static char[][] board = new char[3][3];
+    static char[][] board = {
+            {'-', '-', '-'},
+            {'-', '-', '-'},
+            {'-', '-', '-'}
+    };
+    static char computerSymbol = 'O';
 
     /**
-     * Entry point of the program. Places a sample move
-     * and prints the updated cell value.
+     * Entry point of the program. Triggers the computer move.
      */
     public static void main(String[] args) {
-        placeMove(0, 0, 'X');
-        System.out.println(board[0][0]);
+        computerMove();
     }
 
     /**
-     * Updates the board by placing the given symbol at
-     * the specified row and column.
-     * Input: Row, Column, Symbol
-     * Hint: Assume the move is already validated.
+     * Generates random slot values until a valid move is found,
+     * then places the computer symbol on the board.
      */
+    static void computerMove() {
+        Random random = new Random();
+        int slot, row, col;
+        do {
+            slot = random.nextInt(9) + 1;
+            row = (slot - 1) / 3;
+            col = (slot - 1) % 3;
+        } while (!isValidMove(row, col));
+        placeMove(row, col, computerSymbol);
+    }
+
     static void placeMove(int row, int col, char symbol) {
         board[row][col] = symbol;
+    }
+
+    static boolean isValidMove(int row, int col) {
+        if (row < 0 || row > 2 || col < 0 || col > 2) {
+            return false;
+        }
+        if (board[row][col] != '-') {
+            return false;
+        }
+        return true;
     }
 }
