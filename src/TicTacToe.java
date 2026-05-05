@@ -1,27 +1,31 @@
 /**
  * TicTacToe
- * UC8 controls the continuous game loop and alternates
- * turns until the game ends.
+ * UC9 checks whether a player has won by examining
+ * rows, columns, and diagonals.
  */
 public class TicTacToe {
 
-    static boolean isHumanTurn = true;
-    static boolean gameOver = false;
+    static char[][] board = new char[3][3];
 
     /**
-     * Entry point of the program. Demonstrates the structure
-     * of a continuous game loop.
+     * Entry point of the program. Tests the win-check logic.
      */
     public static void main(String[] args) {
-        while (!gameOver) {
-            if (isHumanTurn) {
-                System.out.println("Human's turn");
-            } else {
-                System.out.println("Computer's turn");
-            }
-            // placeholder: gameOver will be set by win/draw check in future UCs
-            gameOver = true;
-            isHumanTurn = !isHumanTurn;
+        System.out.println(hasWon('X'));
+    }
+
+    /**
+     * Checks all possible winning patterns for the given symbol.
+     * Input: Player symbol
+     * Output: true if win detected.
+     */
+    static boolean hasWon(char symbol) {
+        for (int i = 0; i < 3; i++) {
+            if (board[i][0] == symbol && board[i][1] == symbol && board[i][2] == symbol) return true;
+            if (board[0][i] == symbol && board[1][i] == symbol && board[2][i] == symbol) return true;
         }
+        if (board[0][0] == symbol && board[1][1] == symbol && board[2][2] == symbol) return true;
+        if (board[0][2] == symbol && board[1][1] == symbol && board[2][0] == symbol) return true;
+        return false;
     }
 }
